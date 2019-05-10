@@ -1,4 +1,5 @@
 from .models import *
+from rest_framework import serializers
 
 
 class StrategicGoalSerializer(serializers.ModelSerializer):    
