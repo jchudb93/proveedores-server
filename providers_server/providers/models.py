@@ -46,6 +46,32 @@ class Supplier(models.Model):
         default=ACTIVE
     )
 
+class Contract(models.Model):
+
+    ACTIVE = 'Activo'
+    QUALIFIED = 'Calificado'
+    FINISHED = 'Finalizado'
+    STATE_CHOICES = (
+        (ACTIVE, 'Activo'),
+        (QUALIFIED, 'Calificado'),
+        (FINISHED, 'Finalizado')
+    )
+    dateStart = models.CharField(max_length=10)
+    dateEnd = models.CharField(max_length=10)
+    state = models.CharField(
+        max_length=12,
+        choices=STATE_CHOICES,
+        default=ACTIVE
+    )
+
+    name = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+    percentage = models.FloatField()
+    contract_file = models.CharField(max_length=200)
+    in_charge_points = models.IntegerField(blank=True)
+    quality_points = models.IntegerField(blank=True)
+    contract_points = models.IntegerField(blank=True)
+    services = models.ManyToManyField(Service, blank=True)
     
 class Provider(models.Model):
 
@@ -99,32 +125,9 @@ class Provider(models.Model):
         default=BASIC
     )
     suppliers = models.ManyToManyField(Supplier, blank=True)
+    contract = models.ManyToManyField(Contract, blank=True)
 
 
-class Contract(models.Model):
-
-    ACTIVE = 'Activo'
-    QUALIFIED = 'Calificado'
-    FINISHED = 'Finalizado'
-    STATE_CHOICES = (
-        (ACTIVE, 'Activo'),
-        (QUALIFIED, 'Calificado'),
-        (FINISHED, 'Finalizado')
-    )
-    dateStart = models.CharField(max_length=10)
-    dateEnd = models.CharField(max_length=10)
-    state = models.CharField(
-        max_length=12,
-        choices=STATE_CHOICES,
-        default=ACTIVE
-    )
-    percentage = models.FloatField()
-    contract_file = models.CharField(max_length=200)
-    in_charge_points = models.IntegerField(blank=True)
-    quality_points = models.IntegerField(blank=True)
-    contract_points = models.IntegerField(blank=True)
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE, null=True)
-    services = models.ManyToManyField(Service, blank=True)
 
 
 class Agreement(models.Model):
