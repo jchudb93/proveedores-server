@@ -46,6 +46,7 @@ class Supplier(models.Model):
         default=ACTIVE
     )
 
+
 class Contract(models.Model):
 
     ACTIVE = 'Activo'
@@ -72,6 +73,7 @@ class Contract(models.Model):
     quality_points = models.IntegerField(blank=True)
     contract_points = models.IntegerField(blank=True)
     services = models.ManyToManyField(Service, blank=True)
+
     
 class Provider(models.Model):
 
@@ -126,8 +128,6 @@ class Provider(models.Model):
     )
     suppliers = models.ManyToManyField(Supplier, blank=True)
     contract = models.ManyToManyField(Contract, blank=True)
-
-
 
 
 class Agreement(models.Model):
