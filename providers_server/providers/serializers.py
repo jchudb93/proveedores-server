@@ -18,6 +18,8 @@ class ServiceSerializer(serializers.ModelSerializer):
         queryset=StrategicGoal.objects.all(),
         source='strategic_goals')
 
+    contract_set = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Service
         fields = (
@@ -25,7 +27,8 @@ class ServiceSerializer(serializers.ModelSerializer):
             'name',
             'service_category',
             'strategic_goals',
-            'strategic_goals_ids')
+            'strategic_goals_ids',
+            'contract_set')
 
 
 class TaskSerializer(serializers.ModelSerializer):

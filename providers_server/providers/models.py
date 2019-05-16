@@ -138,7 +138,7 @@ class Incident(models.Model):
     description = models.TextField()
     fulfillment = models.BooleanField()
     satisfaction = models.FloatField()
-    contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
+    contract = models.ForeignKey(Contract, on_delete=models.CASCADE, null=True)
 
 
 class Task(models.Model):
