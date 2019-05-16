@@ -59,7 +59,12 @@ class ContractSerializer(serializers.ModelSerializer):
     agreement_set = AgreementSerializer(many=True)
     task_set = TaskSerializer(many=True)
     incident_set = IncidentSerializer(many=True)
-    service_set = ServiceSerializer(many=True)
+    services = ServiceSerializer(many=True, read_only=True)
+    service_ids = serializers.PrimaryKeyRelatedField(
+        many=True,
+        write_only=True,
+        queryset=Service.objects.all(),
+        source='services')
 
     class Meta:
         model = Contract
@@ -70,7 +75,23 @@ class ContractSerializer(serializers.ModelSerializer):
             'agreement_set',
             'task_set',
             'incident_set',
-            'service_set')
+            'services',
+            'service_ids')
+    
+    def create(self, validate_data):
+
+        agreement_set = validate_data.pop('agreement_set')
+        task_set = validate_data.pop('task_set')
+
+        contract = Contract.objects.create(**validate_data)
+
+        for agreement in agreement_set:
+            Agreement.objects.create(**agreement, contract=contract)
+        
+        for task in task_set:
+            Task.objects.create(**task, contract=contract)
+
+        return contract
 
 
 class ProviderSerializer(serializers.ModelSerializer):
