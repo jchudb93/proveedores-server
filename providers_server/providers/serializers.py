@@ -10,12 +10,13 @@ class StrategicGoalSerializer(serializers.ModelSerializer):
 
 class ServiceSerializer(serializers.ModelSerializer):
 
+    strategic_goals = StrategicGoalSerializer(many=True, read_only=True)
+
     strategic_goals_ids = serializers.PrimaryKeyRelatedField(
         many=True,
-        read_only=False,
+        write_only=True,
         queryset=StrategicGoal.objects.all(),
         source='strategic_goals')
-    contract_set = serializers.RelatedField(queryset=Contract.objects.all())
 
     class Meta:
         model = Service
@@ -23,9 +24,8 @@ class ServiceSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'service_category',
-            'strategic_goals_ids',
-            'contract_set'
-            )
+            'strategic_goals',
+            'strategic_goals_ids')
 
 
 class TaskSerializer(serializers.ModelSerializer):
