@@ -56,15 +56,14 @@ class SupplierSerializer(serializers.ModelSerializer):
 
 
 class ContractSerializer(serializers.ModelSerializer):
-    agreement_set = AgreementSerializer(many=True)
-    task_set = TaskSerializer(many=True)
-    incident_set = IncidentSerializer(many=True)
+    agreement_contracts = AgreementSerializer(many=True)
+    task_contracts = TaskSerializer(many=True)
+    incident_contracts = IncidentSerializer(many=True, read_only=True)
     services = ServiceSerializer(many=True, read_only=True)
     service_ids = serializers.PrimaryKeyRelatedField(
         many=True,
         write_only=True,
-        queryset=Service.objects.all(),
-        source='services')
+        queryset=Service.objects.all())
 
     class Meta:
         model = Contract
@@ -72,25 +71,33 @@ class ContractSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'contract_file',
-            'agreement_set',
-            'task_set',
-            'incident_set',
+            'agreement_contracts',
+            'task_contracts',
+            'incident_contracts',
             'services',
-            'service_ids')
+            'service_ids',
+            'percentage',
+            'in_charge_points',
+            'quality_points',
+            'contract_points')
     
     def create(self, validate_data):
 
-        agreement_set = validate_data.pop('agreement_set')
-        task_set = validate_data.pop('task_set')
-
+        agreement_contracts = validate_data.pop('agreement_contracts')
+        task_contracts = validate_data.pop('task_contracts')
+        service_ids = validate_data.pop('service_ids')
         contract = Contract.objects.create(**validate_data)
 
-        for agreement in agreement_set:
-            Agreement.objects.create(**agreement, contract=contract)
+        for agreement in agreement_contracts:
+            Agreement.objects.create(contract=contract, **agreement)
         
-        for task in task_set:
-            Task.objects.create(**task, contract=contract)
-
+        for task in task_contracts:
+            Task.objects.create(contract=contract, **task)
+        
+        for service_id in service_ids:
+            
+            contract.services.add(service_id)
+        
         return contract
 
 
