@@ -131,6 +131,7 @@ class Agreement(models.Model):
     name = models.TextField()
     description = models.TextField()
     minimum = models.CharField(max_length=255)
+    points = models.IntegerField(blank=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
 
 
