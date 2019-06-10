@@ -30,7 +30,7 @@ SECRET_KEY = '2^a7u7(@x^1yt)5$=$lzdl4#k9z8#ds+)dolz8_uwa8&p$twyy'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-
+    '*'
 ]
 
 

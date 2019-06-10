@@ -64,7 +64,7 @@ class Contract(models.Model):
 
     name = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
-    percentage = models.FloatField()
+    percentage = models.FloatField(blank=True)
     contract_file = models.CharField(max_length=200)
     in_charge_points = models.IntegerField(blank=True)
     quality_points = models.IntegerField(blank=True)
@@ -131,14 +131,25 @@ class Agreement(models.Model):
     name = models.TextField()
     description = models.TextField()
     minimum = models.CharField(max_length=255)
-    contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
+    points = models.IntegerField(blank=True, null=True)
+    contract = models.ForeignKey(
+        Contract,
+        on_delete=models.CASCADE,
+        related_name='agreement_contracts',
+        null=True,
+        blank=True)
 
 
 class Incident(models.Model):
     description = models.TextField()
     fulfillment = models.BooleanField()
     satisfaction = models.FloatField()
-    contract = models.ForeignKey(Contract, on_delete=models.CASCADE, null=True)
+    contract = models.ForeignKey(
+        Contract,
+        on_delete=models.CASCADE,
+        related_name='incident_contracts',
+        null=True,
+        blank=True)
 
 
 class Task(models.Model):
@@ -147,5 +158,10 @@ class Task(models.Model):
     dateEnd = models.CharField(max_length=10)
     notification = models.BooleanField()
     done = models.BooleanField()
-    contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
+    contract = models.ForeignKey(
+        Contract,
+        on_delete=models.CASCADE,
+        related_name='task_contracts',
+        null=True,
+        blank=True)
 
