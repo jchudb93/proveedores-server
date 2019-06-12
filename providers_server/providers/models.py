@@ -38,7 +38,7 @@ class Supplier(models.Model):
     cell = models.CharField(max_length=12)
     ruc = models.IntegerField(blank=False)
     state = models.CharField(
-        max_length=10, 
+        max_length=10,
         choices=STATE_CHOICES,
         default=ACTIVE
     )
@@ -71,7 +71,7 @@ class Contract(models.Model):
     contract_points = models.IntegerField(blank=True)
     services = models.ManyToManyField(Service, blank=True)
 
-    
+
 class Provider(models.Model):
 
     ACTIVE = 'Activo'
@@ -164,4 +164,3 @@ class Task(models.Model):
         related_name='task_contracts',
         null=True,
         blank=True)
-
