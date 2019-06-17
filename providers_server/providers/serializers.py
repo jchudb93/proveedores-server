@@ -103,6 +103,7 @@ class ContractSerializer(serializers.ModelSerializer):
 
 class ProviderSerializer(serializers.ModelSerializer):
     supplier = SupplierSerializer(many=True, read_only=True)
+    contract = ContractSerializer(many=True, read_only=True)
     
     class Meta:
         model = Provider

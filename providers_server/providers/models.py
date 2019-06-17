@@ -154,10 +154,10 @@ class Incident(models.Model):
 
 class Task(models.Model):
     name = models.TextField()
-    dateLimit = models.CharField(max_length=10)
-    dateEnd = models.CharField(max_length=10)
-    notification = models.BooleanField()
-    done = models.BooleanField()
+    dateLimit = models.CharField(max_length=10, null=True, blank=True) 
+    dateEnd = models.CharField(max_length=10, null=True, blank=True)
+    notification = models.BooleanField(null=True, blank=True)
+    done = models.BooleanField(default=False)
     contract = models.ForeignKey(
         Contract,
         on_delete=models.CASCADE,
