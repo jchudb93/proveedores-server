@@ -108,3 +108,8 @@ class ProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Provider
         fields = '__all__'
+
+
+class ContractDescriptionSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    description = serializers.CharField()
