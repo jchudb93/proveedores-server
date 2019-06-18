@@ -64,11 +64,11 @@ class Contract(models.Model):
 
     name = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
-    percentage = models.FloatField(blank=True)
+    percentage = models.FloatField(blank=True, null=True)
     contract_file = models.CharField(max_length=200)
-    in_charge_points = models.IntegerField(blank=True)
-    quality_points = models.IntegerField(blank=True)
-    contract_points = models.IntegerField(blank=True)
+    in_charge_points = models.IntegerField(blank=True,  null=True)
+    quality_points = models.IntegerField(blank=True,  null=True)
+    contract_points = models.IntegerField(blank=True,  null=True)
     services = models.ManyToManyField(Service, blank=True)
 
     
@@ -154,10 +154,10 @@ class Incident(models.Model):
 
 class Task(models.Model):
     name = models.TextField()
-    dateLimit = models.CharField(max_length=10)
-    dateEnd = models.CharField(max_length=10)
-    notification = models.BooleanField()
-    done = models.BooleanField()
+    dateLimit = models.CharField(max_length=10, null=True, blank=True)
+    dateEnd = models.CharField(max_length=10, null=True, blank=True)
+    notification = models.BooleanField(null=True, blank=True)
+    done = models.BooleanField(default=False)
     contract = models.ForeignKey(
         Contract,
         on_delete=models.CASCADE,
