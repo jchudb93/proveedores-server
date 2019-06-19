@@ -55,6 +55,14 @@ class SupplierSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProviderSerializer(serializers.ModelSerializer):
+    supplier = SupplierSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Provider
+        fields = '__all__'
+
+
 class ContractSerializer(serializers.ModelSerializer):
     agreement_contracts = AgreementSerializer(many=True)
     task_contracts = TaskSerializer(many=True)
@@ -64,14 +72,23 @@ class ContractSerializer(serializers.ModelSerializer):
         many=True,
         write_only=True,
         queryset=Service.objects.all())
+    provider = ProviderSerializer(many=True, read_only=True)
+    provider_contracts = serializers.PrimaryKeyRelatedField(
+        many=True,
+        write_only=True,
+        queryset=Provider.objects.all())
 
     class Meta:
         model = Contract
         fields = (
+            'id',
             'name',
             'description',
             'contract_file',
             'agreement_contracts',
+            'state',
+            'dateStart',
+            'dateEnd',
             'task_contracts',
             'incident_contracts',
             'services',
@@ -79,7 +96,9 @@ class ContractSerializer(serializers.ModelSerializer):
             'percentage',
             'in_charge_points',
             'quality_points',
-            'contract_points')
+            'contract_points',
+            'provider',
+            'provider_contracts')
     
     def create(self, validate_data):
 
@@ -100,16 +119,3 @@ class ContractSerializer(serializers.ModelSerializer):
         
         return contract
 
-
-class ProviderSerializer(serializers.ModelSerializer):
-    supplier = SupplierSerializer(many=True, read_only=True)
-    contract = ContractSerializer(many=True, read_only=True)
-    
-    class Meta:
-        model = Provider
-        fields = '__all__'
-
-
-class ContractDescriptionSerializer(serializers.Serializer):
-    name = serializers.CharField()
-    description = serializers.CharField()
