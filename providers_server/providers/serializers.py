@@ -56,6 +56,16 @@ class IncidentSerializer(serializers.ModelSerializer):
         model = Incident
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        
+        instance.name = validated_data.get('description', instance.description)
+        instance.fulfillment = validated_data.get(
+            'fulfillment',
+            instance.fulfillment)
+        instance.satisfaction = validated_data.get('satisfaction', instance.satisfaction)
+        instance.save()
+        return instance
+
 
 class AgreementSerializer(serializers.ModelSerializer):
     class Meta:
