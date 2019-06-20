@@ -35,6 +35,20 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
+    
+    def update(self, instance, validated_data):
+        
+        instance.name = validated_data.get('name', instance.name)
+        instance.dateLimit = validated_data.get(
+            'dateLimit',
+            instance.dateLimit)
+        instance.dateEnd = validated_data.get('dateEnd', instance.dateEnd)
+        instance.notification = validated_data.get(
+            'notification',
+            instance.notification)
+        instance.done = validated_data.get('done', instance.done)
+        instance.save()
+        return instance
 
 
 class IncidentSerializer(serializers.ModelSerializer):
@@ -107,7 +121,9 @@ class ContractSerializer(serializers.ModelSerializer):
         task_contracts = validate_data.pop('task_contracts')
         service_ids = validate_data.pop('service_ids')
         provider_id = validate_data.pop('provider_id')
-        contract = Contract.objects.create(**validate_data, provider=provider_id)
+        contract = Contract.objects.create(
+            **validate_data,
+            provider=provider_id)
 
         for agreement in agreement_contracts:
             Agreement.objects.create(contract=contract, **agreement)
@@ -125,4 +141,3 @@ class ContractSerializer(serializers.ModelSerializer):
 class ContractStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
-
