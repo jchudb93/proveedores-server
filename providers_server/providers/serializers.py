@@ -141,3 +141,8 @@ class ContractSerializer(serializers.ModelSerializer):
 class ContractStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
+
+
+class ProviderStateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Provider

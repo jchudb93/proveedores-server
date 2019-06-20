@@ -61,3 +61,20 @@ class UpdateContractState(generics.UpdateAPIView):
         self.perform_update(serializer)
 
         return Response(serializer.data)
+
+
+class UpdateProviderState(generics.UpdateAPIView):
+
+    queryset = Provider.objects.all()
+    serializer_class = ProviderStateSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.state = request.data.get('state')
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
