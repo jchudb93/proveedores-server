@@ -38,40 +38,12 @@ class Supplier(models.Model):
     cell = models.CharField(max_length=12)
     ruc = models.IntegerField(blank=False)
     state = models.CharField(
-        max_length=10, 
+        max_length=10,
         choices=STATE_CHOICES,
         default=ACTIVE
     )
 
 
-class Contract(models.Model):
-
-    ACTIVE = 'Activo'
-    QUALIFIED = 'Calificado'
-    FINISHED = 'Finalizado'
-    STATE_CHOICES = (
-        (ACTIVE, 'Activo'),
-        (QUALIFIED, 'Calificado'),
-        (FINISHED, 'Finalizado')
-    )
-    dateStart = models.CharField(max_length=10)
-    dateEnd = models.CharField(max_length=10)
-    state = models.CharField(
-        max_length=12,
-        choices=STATE_CHOICES,
-        default=ACTIVE
-    )
-
-    name = models.CharField(max_length=200, blank=True)
-    description = models.TextField(blank=True)
-    percentage = models.FloatField(blank=True, null=True)
-    contract_file = models.CharField(max_length=200)
-    in_charge_points = models.IntegerField(blank=True,  null=True)
-    quality_points = models.IntegerField(blank=True,  null=True)
-    contract_points = models.IntegerField(blank=True,  null=True)
-    services = models.ManyToManyField(Service, blank=True)
-
-    
 class Provider(models.Model):
 
     ACTIVE = 'Activo'
@@ -124,7 +96,41 @@ class Provider(models.Model):
         default=BASIC
     )
     suppliers = models.ManyToManyField(Supplier, blank=True)
-    contract = models.ManyToManyField(Contract, blank=True)
+
+
+class Contract(models.Model):
+
+    ACTIVE = 'Activo'
+    QUALIFIED = 'Calificado'
+    FINISHED = 'Finalizado'
+    STATE_CHOICES = (
+        (ACTIVE, 'Activo'),
+        (QUALIFIED, 'Calificado'),
+        (FINISHED, 'Finalizado')
+    )
+    dateStart = models.CharField(max_length=10)
+    dateEnd = models.CharField(max_length=10)
+    state = models.CharField(
+        max_length=12,
+        choices=STATE_CHOICES,
+        default=ACTIVE
+    )
+
+    name = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+    percentage = models.FloatField(blank=True, null=True)
+    contract_file = models.CharField(max_length=200)
+    in_charge_points = models.IntegerField(blank=True,  null=True)
+    quality_points = models.IntegerField(blank=True,  null=True)
+    contract_points = models.IntegerField(blank=True,  null=True)
+    services = models.ManyToManyField(Service, blank=True)
+    provider = models.ForeignKey(
+        Provider,
+        on_delete=models.CASCADE,
+        related_name='contract_providers',
+        null=True,
+        blank=True
+        )
 
 
 class Agreement(models.Model):
@@ -142,8 +148,8 @@ class Agreement(models.Model):
 
 class Incident(models.Model):
     description = models.TextField()
-    fulfillment = models.BooleanField()
-    satisfaction = models.FloatField()
+    fulfillment = models.BooleanField(blank=True, null=True, default=False)
+    satisfaction = models.FloatField(blank=True, null=True)
     contract = models.ForeignKey(
         Contract,
         on_delete=models.CASCADE,
@@ -164,4 +170,3 @@ class Task(models.Model):
         related_name='task_contracts',
         null=True,
         blank=True)
-
