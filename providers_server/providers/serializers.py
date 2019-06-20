@@ -67,16 +67,17 @@ class ContractSerializer(serializers.ModelSerializer):
     agreement_contracts = AgreementSerializer(many=True)
     task_contracts = TaskSerializer(many=True)
     incident_contracts = IncidentSerializer(many=True, read_only=True)
+
     services = ServiceSerializer(many=True, read_only=True)
     service_ids = serializers.PrimaryKeyRelatedField(
         many=True,
         write_only=True,
         queryset=Service.objects.all())
-    provider = ProviderSerializer(many=True, read_only=True)
-    provider_contracts = serializers.PrimaryKeyRelatedField(
-        many=True,
+
+    provider = ProviderSerializer(read_only=True)
+    provider_id = serializers.PrimaryKeyRelatedField(
         write_only=True,
-        queryset=Provider.objects.all())
+        queryset=Provider.objects.filter(state__exact='Activo'))
 
     class Meta:
         model = Contract
@@ -98,14 +99,15 @@ class ContractSerializer(serializers.ModelSerializer):
             'quality_points',
             'contract_points',
             'provider',
-            'provider_contracts')
+            'provider_id')
     
     def create(self, validate_data):
 
         agreement_contracts = validate_data.pop('agreement_contracts')
         task_contracts = validate_data.pop('task_contracts')
         service_ids = validate_data.pop('service_ids')
-        contract = Contract.objects.create(**validate_data)
+        provider_id = validate_data.pop('provider_id')
+        contract = Contract.objects.create(**validate_data, provider=provider_id)
 
         for agreement in agreement_contracts:
             Agreement.objects.create(contract=contract, **agreement)
@@ -118,4 +120,9 @@ class ContractSerializer(serializers.ModelSerializer):
             contract.services.add(service_id)
         
         return contract
+
+
+class ContractStateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contract
 
