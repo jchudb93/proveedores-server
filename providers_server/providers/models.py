@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class StrategicGoal(models.Model):
 
     name = models.CharField(max_length=255)
-
+    
 
 class Service(models.Model):
     name = models.CharField(max_length=255)
