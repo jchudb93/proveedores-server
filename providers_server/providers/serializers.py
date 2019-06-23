@@ -62,7 +62,9 @@ class IncidentSerializer(serializers.ModelSerializer):
         instance.fulfillment = validated_data.get(
             'fulfillment',
             instance.fulfillment)
-        instance.satisfaction = validated_data.get('satisfaction', instance.satisfaction)
+        instance.satisfaction = validated_data.get(
+            'satisfaction',
+            instance.satisfaction)
         instance.save()
         return instance
 

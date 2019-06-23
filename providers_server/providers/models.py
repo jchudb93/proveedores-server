@@ -148,7 +148,7 @@ class Agreement(models.Model):
 
 class Incident(models.Model):
     description = models.TextField()
-    fulfillment = models.BooleanField(blank=True, null=True, default=False)
+    fulfillment = models.BooleanField(blank=True, null=True)
     satisfaction = models.FloatField(blank=True, null=True)
     contract = models.ForeignKey(
         Contract,

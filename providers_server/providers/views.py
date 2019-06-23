@@ -29,7 +29,7 @@ class AgreementView(viewsets.ModelViewSet):
 class IncidentView(viewsets.ModelViewSet):
     queryset = Incident.objects.all()
     serializer_class = IncidentSerializer
-
+    
 
 class ContractView(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
