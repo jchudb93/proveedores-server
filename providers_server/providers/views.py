@@ -83,13 +83,13 @@ class UpdateProviderState(generics.UpdateAPIView):
 class UpdateContractQualification(generics.UpdateAPIView):
 
     queryset = Contract.objects.all()
-    serializer_class = COntractQualificationSerializer
+    serializer_class = ContractQualificationSerializer
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.in_charge_points = request.data.get('in_charge_points')
         instance.quality_points = request.data.get('quality_points')
-        instance.quality_points = request.data.get('contract_points')
+        instance.contract_points = request.data.get('contract_points')
         instance.save()
 
         serializer = self.get_serializer(instance)

@@ -32,6 +32,10 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
+
+    percentage = serializers.FloatField(write_only=True, required=False)
+    contract_id = serializers.IntegerField(write_only=True, required=False)
+
     class Meta:
         model = Task
         fields = '__all__'
@@ -48,6 +52,11 @@ class TaskSerializer(serializers.ModelSerializer):
             instance.notification)
         instance.done = validated_data.get('done', instance.done)
         instance.save()
+        if validated_data['contract_id'] is not None:
+            contract_id = validated_data['contract_id']
+            percentage = validated_data['percentage']
+            Contract.objects.filter(pk=contract_id).update(
+                percentage=percentage)
         return instance
 
 
@@ -160,6 +169,6 @@ class ProviderStateSerializer(serializers.ModelSerializer):
         model = Provider
 
 
-class COntractQualificationSerializer(serializers.ModelSerializer):
+class ContractQualificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
