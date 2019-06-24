@@ -90,6 +90,7 @@ class UpdateContractQualification(generics.UpdateAPIView):
         instance.in_charge_points = request.data.get('in_charge_points')
         instance.quality_points = request.data.get('quality_points')
         instance.quality_points = request.data.get('contract_points')
+        instance.percentage = request.data.get('percentage')
         instance.save()
 
         serializer = self.get_serializer(instance)
