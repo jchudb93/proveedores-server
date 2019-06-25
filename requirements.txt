@@ -3,5 +3,6 @@ django-cors-headers==3.0.0
 djangorestframework==3.9.3
 drf-nested-routers==0.91
 pep8==1.7.1
+psycopg2==2.8.3
 pytz==2019.1
 sqlparse==0.3.0
