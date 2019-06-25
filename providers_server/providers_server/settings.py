@@ -33,6 +33,8 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+DATE_INPUT_FORMATS = ('%d/%m/%Y')
+
 
 # Application definition
 
@@ -89,6 +91,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}
+
+REST_FRAMEWORK = {
+    
+    "DATE_FORMATS": ["%d-%m-%Y"],
+    "DATE_INPUT_FORMATS": ["%d-%m-%Y"]
 }
 
 

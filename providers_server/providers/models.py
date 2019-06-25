@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+from django.conf import settings
 # Create your models here.
 
 
@@ -108,8 +110,14 @@ class Contract(models.Model):
         (QUALIFIED, 'Calificado'),
         (FINISHED, 'Finalizado')
     )
-    dateStart = models.CharField(max_length=10)
-    dateEnd = models.CharField(max_length=10)
+    dateStart = models.DateField(
+        settings.DATE_INPUT_FORMATS,
+        null=True,
+        blank=True)
+    dateEnd = models.DateField(
+        settings.DATE_INPUT_FORMATS,
+        null=True,
+        blank=True)
     state = models.CharField(
         max_length=12,
         choices=STATE_CHOICES,
@@ -160,8 +168,14 @@ class Incident(models.Model):
 
 class Task(models.Model):
     name = models.TextField()
-    dateLimit = models.CharField(max_length=10, null=True, blank=True)
-    dateEnd = models.CharField(max_length=10, null=True, blank=True)
+    dateLimit = models.DateField(
+        settings.DATE_INPUT_FORMATS,
+        null=True,
+        blank=True)
+    dateEnd = models.DateField(
+        settings.DATE_INPUT_FORMATS,
+        null=True,
+        blank=True)
     notification = models.BooleanField(null=True, blank=True)
     done = models.BooleanField(default=False)
     contract = models.ForeignKey(
