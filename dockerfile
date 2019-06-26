@@ -1,5 +1,6 @@
 FROM python:3.7-alpine
 ENV PYTHONUNBUFFERED 1
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 RUN  mkdir /providers-app
 WORKDIR /providers-app
 COPY . /providers-app
