@@ -35,6 +35,8 @@ class TaskSerializer(serializers.ModelSerializer):
 
     percentage = serializers.FloatField(write_only=True, required=False)
     contract_id = serializers.IntegerField(write_only=True, required=False)
+    dateLimit = serializers.DateField(format='%d-%m-%Y')
+    dateEnd = serializers.DateField(format='%d-%m-%Y')
 
     class Meta:
         model = Task
@@ -114,6 +116,9 @@ class ContractSerializer(serializers.ModelSerializer):
         write_only=True,
         queryset=Provider.objects.filter(state__exact='Activo'))
 
+    dateStart = serializers.DateField(format='%d-%m-%Y')
+    dateEnd = serializers.DateField(format='%d-%m-%Y')
+
     class Meta:
         model = Contract
         fields = (
@@ -172,3 +177,15 @@ class ProviderStateSerializer(serializers.ModelSerializer):
 class ContractQualificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
+
+
+class ContractPointsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contract
+        fields = (
+            'id',
+            'dateStart',
+            'in_charge_points',
+            'quality_points',
+            'contract_points'
+        )

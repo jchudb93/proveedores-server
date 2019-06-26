@@ -12,6 +12,7 @@ router.register('contract', views.ContractView)
 router.register('provider', views.ProviderView)
 router.register('supplier', views.SupplierView)
 
+
 contract_router = routers.NestedSimpleRouter(
     router,
     r'provider',
@@ -20,5 +21,6 @@ contract_router.register(r'contracts', views.ContractView)
 
 urlpatterns = [ 
     path('', include(router.urls)),
-    path('', include(contract_router.urls))
+    path('', include(contract_router.urls)),
+    path('provider_points/<int:id>/', views.ProviderPointsView.as_view())
 ]

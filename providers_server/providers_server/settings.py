@@ -33,6 +33,8 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+DATE_INPUT_FORMATS = ('%d/%m/%Y')
+
 
 # Application definition
 
@@ -88,7 +90,22 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'postgres': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': "itil_proveedores",
+        'USER': "itil_admin",
+        'PASSWORD': "itil_admin",
+        'HOST': "127.0.0.1",
+        'PORT': "5432",
+
     }
+}
+
+REST_FRAMEWORK = {
+    
+    "DATE_FORMATS": ["%d-%m-%Y"],
+    "DATE_INPUT_FORMATS": ["%d-%m-%Y"]
 }
 
 

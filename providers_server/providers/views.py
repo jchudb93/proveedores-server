@@ -97,4 +97,19 @@ class UpdateContractQualification(generics.UpdateAPIView):
         self.perform_update(serializer)
 
         return Response(serializer.data)
-    
+
+
+class ProviderPointsView(generics.ListAPIView):
+
+    serializer_class = ContractPointsSerializer
+
+    def get_queryset(self):
+
+        provider = self.kwargs['id']
+        queryset = Contract.objects.filter(
+            provider_id=provider
+            ).order_by(
+                'dateStart'
+                )
+        return queryset
+
