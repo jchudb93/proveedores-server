@@ -184,6 +184,7 @@ class ContractPointsSerializer(serializers.ModelSerializer):
         model = Contract
         fields = (
             'id',
+            'state',
             'dateStart',
             'in_charge_points',
             'quality_points',
