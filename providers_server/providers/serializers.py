@@ -119,7 +119,6 @@ class ContractSerializer(serializers.ModelSerializer):
     dateStart = serializers.DateField(format='%d-%m-%Y')
     dateEnd = serializers.DateField(format='%d-%m-%Y')
 
-
     class Meta:
         model = Contract
         fields = (
@@ -190,11 +189,3 @@ class ContractPointsSerializer(serializers.ModelSerializer):
             'quality_points',
             'contract_points'
         )
-
-
-class ProviderPointsSerializer(serializers.Serializer):
-
-    provider = ProviderSerializer(read_only=True)
-    contract_points = ContractPointsSerializer(read_only=True, many=True)
-
-    
