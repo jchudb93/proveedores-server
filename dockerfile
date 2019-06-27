@@ -6,7 +6,9 @@ WORKDIR /providers-app
 COPY . /providers-app
 RUN pip install -r requirements.txt
 WORKDIR /providers-app/providers_server
+RUN rm db.sqlite3
 RUN python manage.py makemigrations && python manage.py migrate
+RUN python manage.py loaddata fixture_data.json
 EXPOSE 8000
 STOPSIGNAL SIGINT
 ENTRYPOINT ["python" ,"manage.py"]
