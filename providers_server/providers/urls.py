@@ -22,5 +22,6 @@ contract_router.register(r'contracts', views.ContractView)
 urlpatterns = [ 
     path('', include(router.urls)),
     path('', include(contract_router.urls)),
-    path('provider_points/<int:id>/', views.ProviderPointsView.as_view())
+    path('provider_points/<int:id>/', views.ProviderPointsView.as_view()),
+    path('provider_avgs/<int:pk>/', views.ProviderAvgPointsView.as_view())
 ]

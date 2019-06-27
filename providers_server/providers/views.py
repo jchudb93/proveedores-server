@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
+from django.db.models import Avg
+
 
 # Create your views here.
 class StrategicGoalView(viewsets.ModelViewSet):
@@ -111,5 +113,23 @@ class ProviderPointsView(generics.ListAPIView):
             ).order_by(
                 'dateStart'
                 )
+        return queryset
+
+
+class ProviderAvgPointsView(generics.RetrieveAPIView):
+
+    lookup_field = 'provider_avgs'
+    serializer_class = ProviderAvgSerializer
+
+    def get_object(self):
+
+        provider = self.kwargs['pk']
+        queryset = Contract.objects.filter(
+            provider_id=provider
+            ).aggregate(
+                in_charge_points_avg=Avg('in_charge_points'),
+                quality_points_avg=Avg('quality_points'),
+                contract_points_avg=Avg('contract_points')
+            )
         return queryset
 

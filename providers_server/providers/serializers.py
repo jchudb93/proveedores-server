@@ -190,3 +190,10 @@ class ContractPointsSerializer(serializers.ModelSerializer):
             'quality_points',
             'contract_points'
         )
+
+
+class ProviderAvgSerializer(serializers.Serializer):
+
+    in_charge_points_avg = serializers.FloatField()
+    quality_points_avg = serializers.FloatField()
+    contract_points_avg = serializers.FloatField()
