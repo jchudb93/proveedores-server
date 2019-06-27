@@ -133,3 +133,28 @@ class ProviderAvgPointsView(generics.RetrieveAPIView):
             )
         return queryset
 
+
+class AllProviderAvgPointsView(generics.ListAPIView):
+
+    serializer_class = ProviderAvgSerializer
+
+    def get_queryset(self):
+
+        queryset = Contract.objects.values('provider_id').all().annotate(
+                in_charge_points_avg=Avg('in_charge_points'),
+                quality_points_avg=Avg('quality_points'),
+                contract_points_avg=Avg('contract_points')
+            )
+        return queryset
+
+
+class ProviderContractViewSet(generics.ListAPIView):
+
+    serializer_class = ContractSerializer
+
+    def get_queryset(self):
+
+        provider = self.kwargs['pk']
+        queryset = Contract.objects.filter(provider_id=provider)
+
+        return queryset
