@@ -81,7 +81,7 @@ class Provider(models.Model):
     telephone = models.CharField(max_length=12)
     cell = models.CharField(max_length=12)
     web = models.CharField(max_length=255)
-    ruc = models.IntegerField(blank=False)
+    ruc = models.CharField(max_length=11, blank=False)
     state = models.CharField(
         max_length=10,
         choices=STATE_CHOICES,

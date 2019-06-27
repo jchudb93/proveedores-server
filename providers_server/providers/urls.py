@@ -23,5 +23,9 @@ urlpatterns = [
     path('', include(router.urls)),
     path('', include(contract_router.urls)),
     path('provider_points/<int:id>/', views.ProviderPointsView.as_view()),
-    path('provider_avgs/<int:pk>/', views.ProviderAvgPointsView.as_view())
+    path('provider_avgs/<int:pk>/', views.ProviderAvgPointsView.as_view()),
+    path('provider_avgs/', views.AllProviderAvgPointsView.as_view()),
+    path(
+        'provider_contracts/<int:pk>',
+        views.ProviderContractViewSet.as_view())
 ]

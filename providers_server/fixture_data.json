@@ -1,0 +1,26 @@
+[
+  {
+    "model": "providers.StrategicGoal",
+    "fields": {
+      "name": "“Posicionarnos como la empresa más importante del sector”"
+    }
+  },
+  {
+    "model": "providers.StrategicGoal",
+    "fields": {
+      "name": "Superar a la competencia en visibilidad y ventas"
+    }
+  },
+  {
+    "model": "providers.StrategicGoal",
+    "fields": {
+      "name": "Convertirnos en una marca conocida, reconocida y querida"
+    }
+  },
+  {
+    "model": "providers.StrategicGoal",
+    "fields": {
+      "name": "Conocer gustos y preferencias de nuestros clientes habituales"
+    }
+  }
+]

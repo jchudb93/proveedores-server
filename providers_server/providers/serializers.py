@@ -35,8 +35,8 @@ class TaskSerializer(serializers.ModelSerializer):
 
     percentage = serializers.FloatField(write_only=True, required=False)
     contract_id = serializers.IntegerField(write_only=True, required=False)
-    dateLimit = serializers.DateField(format='%d-%m-%Y')
-    dateEnd = serializers.DateField(format='%d-%m-%Y')
+    dateLimit = serializers.DateField(format='%d-%m-%Y', required=False)
+    dateEnd = serializers.DateField(format='%d-%m-%Y', required=False)
 
     class Meta:
         model = Task
