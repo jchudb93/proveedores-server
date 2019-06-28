@@ -138,6 +138,7 @@ class ContractSerializer(serializers.ModelSerializer):
             'in_charge_points',
             'quality_points',
             'contract_points',
+            'supplier_points',
             'provider',
             'provider_id')
     
@@ -188,12 +189,21 @@ class ContractPointsSerializer(serializers.ModelSerializer):
             'dateStart',
             'in_charge_points',
             'quality_points',
-            'contract_points'
+            'contract_points',
+            'supplier_points'
         )
 
 
 class ProviderAvgSerializer(serializers.Serializer):
 
+    provider_id = serializers.IntegerField(required=False)
     in_charge_points_avg = serializers.FloatField()
     quality_points_avg = serializers.FloatField()
     contract_points_avg = serializers.FloatField()
+    supplier_points_avg = serializers.FloatField()
+
+
+class ServiceProviderSerialzier(serializers.Serializer):
+
+    provider_id = serializers.IntegerField()
+    contract_count = serializers.IntegerField()

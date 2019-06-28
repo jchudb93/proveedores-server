@@ -131,6 +131,7 @@ class Contract(models.Model):
     in_charge_points = models.IntegerField(blank=True,  null=True)
     quality_points = models.IntegerField(blank=True,  null=True)
     contract_points = models.IntegerField(blank=True,  null=True)
+    supplier_points = models.IntegerField(blank=True,  null=True)
     services = models.ManyToManyField(Service, blank=True)
     provider = models.ForeignKey(
         Provider,

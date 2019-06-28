@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 
 # Create your views here.
@@ -92,6 +92,7 @@ class UpdateContractQualification(generics.UpdateAPIView):
         instance.in_charge_points = request.data.get('in_charge_points')
         instance.quality_points = request.data.get('quality_points')
         instance.contract_points = request.data.get('contract_points')
+        instance.supplier_points = request.data.get('supplier_points')
         instance.save()
 
         serializer = self.get_serializer(instance)
@@ -129,7 +130,8 @@ class ProviderAvgPointsView(generics.RetrieveAPIView):
             ).aggregate(
                 in_charge_points_avg=Avg('in_charge_points'),
                 quality_points_avg=Avg('quality_points'),
-                contract_points_avg=Avg('contract_points')
+                contract_points_avg=Avg('contract_points'),
+                supplier_points_avg=Avg('supplier_points')
             )
         return queryset
 
@@ -143,7 +145,8 @@ class AllProviderAvgPointsView(generics.ListAPIView):
         queryset = Contract.objects.values('provider_id').all().annotate(
                 in_charge_points_avg=Avg('in_charge_points'),
                 quality_points_avg=Avg('quality_points'),
-                contract_points_avg=Avg('contract_points')
+                contract_points_avg=Avg('contract_points'),
+                supplier_points_avg=Avg('supplier_points')
             )
         return queryset
 
@@ -157,4 +160,21 @@ class ProviderContractViewSet(generics.ListAPIView):
         provider = self.kwargs['pk']
         queryset = Contract.objects.filter(provider_id=provider)
 
+        return queryset
+
+
+class ServiceProviderViewSet(generics.ListAPIView):
+
+    serializer_class = ServiceProviderSerialzier
+
+    def get_queryset(self):
+
+        service = self.kwargs['pk']
+        queryset = Contract.objects.filter(
+            services=service
+            ).values(
+                'provider_id'
+                ).annotate(
+                    contract_count=Count('provider_id'))
+        
         return queryset
