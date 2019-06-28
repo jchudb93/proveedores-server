@@ -27,5 +27,8 @@ urlpatterns = [
     path('provider_avgs/', views.AllProviderAvgPointsView.as_view()),
     path(
         'provider_contracts/<int:pk>',
-        views.ProviderContractViewSet.as_view())
+        views.ProviderContractViewSet.as_view()),
+    path(
+        'service_providers/<int:pk>/',
+        views.ServiceProviderViewSet.as_view())
 ]
