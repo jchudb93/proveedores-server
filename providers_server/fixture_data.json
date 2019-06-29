@@ -22,5 +22,141 @@
     "fields": {
       "name": "Conocer gustos y preferencias de nuestros clientes habituales"
     }
+  },
+  {
+    "model": "providers.StrategicGoal",
+    "fields": {
+      "name": "Expandir el negocio a diferentes regiones del país"
+    }
+  },
+  {
+    "model": "providers.StrategicGoal",
+    "fields": {
+      "name": "Reducir un 20% los gastos operativos de la empresa"
+    }
+  },
+  {
+    "model": "providers.Service",
+    "fields": {
+      "name": "Servicio de desarrollo web",
+      "service_category": "Servicio Táctico",
+      "strategic_goals": [1, 2, 3, 4]
+    }
+  },
+  {
+    "model": "providers.Service",
+    "fields": {
+      "name": "Servicio de administración de infraestructura",
+      "service_category": "Servicio Estrategico",
+      "strategic_goals": [5, 6]
+    }
+  },
+  {
+    "model": "providers.Service",
+    "fields": {
+      "name": "Servicio de seguridad de la información",
+      "service_category": "Servicio Estratégico",
+      "strategic_goals": [5, 6]
+    }
+  },
+  {
+    "model": "providers.Service",
+    "fields": {
+      "name": "Servicio limpieza",
+      "service_category": "Servicio Básico",
+      "strategic_goals": [6]
+    }
+  },
+  {
+    "model": "providers.Service",
+    "fields": {
+      "name": "Servicio de seguridad corporativa",
+      "service_category": "Servicio Básico",
+      "strategic_goals": [6]
+    }
+  },
+  {
+    "model": "providers.Service",
+    "fields": {
+      "name": "Servicio de transporte operativo",
+      "service_category": "Servicio Operativo",
+      "strategic_goals": [2, 6]
+    }
+  },
+  {
+    "model": "providers.User",
+    "fields": {
+      "role": "Empleado",
+      "name": "Carlos",
+      "last_name": "Jara",
+      "id_doc": "739897105",
+      "username": "cjara@gmail.com",
+      "password": "123456"
+    }
+  },
+  {
+    "model": "providers.User",
+    "fields": {
+      "role": "Encargado",
+      "name": "Cynthia",
+      "last_name": "Castillo",
+      "id_doc": "738609701",
+      "username": "ccastillo@gmail.com",
+      "password": "123456"
+    }
+  },
+  {
+    "model": "providers.Provider",
+    "fields": {
+      "in_charge": 2,
+      "contact": "Rafael Trujillo",
+      "company": "Everis",
+      "country": "Perú",
+      "address": "Av. Velazco Astete 342",
+      "email": "rtrujillo@everis.com",
+      "telephone": "4203320",
+      "cell": "998989138",
+      "web": "www.everis.com",
+      "ruc": "20345678916",
+      "state": "Activo",
+      "provider_type": "Externo",
+      "category": "Táctico"
+    }
+  },
+  {
+    "model": "providers.Provider",
+    "fields": {
+      "in_charge": 2,
+      "contact": "Óscar Cáceres",
+      "company": "Eulen",
+      "country": "Perú",
+      "address": "Av. San Luis 320",
+      "email": "ocaceres@eulen.com",
+      "telephone": "5620716",
+      "cell": "998998135",
+      "web": "www.eulen.com",
+      "ruc": "20738609701",
+      "state": "Activo",
+      "provider_type": "Externo",
+      "category": "Básico"
+    }
+  },
+  {
+    "model": "providers.Provider",
+    "fields": {
+      "in_charge": 2,
+      "contact": "Renato Vera",
+      "company": "Casevip",
+      "country": "Perú",
+      "address": "Av. Velazco Astete 1100",
+      "email": "rvera@casevip.com",
+      "telephone": "4202000",
+      "cell": "998989138",
+      "web": "www.casevip.com",
+      "ruc": "20702590781",
+      "state": "Activo",
+      "provider_type": "Externo",
+      "category": "Básico"
+    }
   }
 ]
