@@ -5,6 +5,27 @@ from django.conf import settings
 # Create your models here.
 
 
+class User(models.Model):
+
+    IN_CHARGE = 'Encargado'
+    EMPLOYEE = 'Empleado'
+    ROLE_CHOICES = (
+        (IN_CHARGE, 'Encargado'),
+        (EMPLOYEE, 'Empleado'),
+    )
+    role = models.CharField(
+        max_length=15,
+        choices=ROLE_CHOICES,
+        default='Empleado'
+        )
+
+    name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    id_doc = models.CharField(max_length=9)
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+
+
 class StrategicGoal(models.Model):
 
     name = models.CharField(max_length=255)
@@ -17,7 +38,6 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name + " " + self.service_category
-
 
 
 class Provider(models.Model):
@@ -72,6 +92,14 @@ class Provider(models.Model):
         default=BASIC
     )
     # suppliers = models.ManyToManyField(Supplier, blank=True)
+
+    in_charge = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='provider_user')
+
 
 class Supplier(models.Model):
     ACTIVE = 'Activo'

@@ -178,3 +178,8 @@ class ServiceProviderViewSet(generics.ListAPIView):
                     contract_count=Count('provider_id'))
         
         return queryset
+
+
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerialzer

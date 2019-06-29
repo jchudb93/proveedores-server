@@ -11,6 +11,7 @@ router.register('agreement', views.AgreementView)
 router.register('contract', views.ContractView)
 router.register('provider', views.ProviderView)
 router.register('supplier', views.SupplierView)
+router.register('user', views.UserView)
 
 
 contract_router = routers.NestedSimpleRouter(
