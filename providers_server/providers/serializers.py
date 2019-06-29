@@ -93,7 +93,7 @@ class SupplierSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserSerialzer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User

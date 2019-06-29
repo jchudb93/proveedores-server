@@ -31,5 +31,6 @@ urlpatterns = [
         views.ProviderContractViewSet.as_view()),
     path(
         'service_providers/<int:pk>/',
-        views.ServiceProviderViewSet.as_view())
+        views.ServiceProviderViewSet.as_view()),
+    path('login/<str:username>/<str:password>', views.UserLoginView.as_view())
 ]
