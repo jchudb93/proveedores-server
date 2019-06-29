@@ -11,6 +11,7 @@ router.register('agreement', views.AgreementView)
 router.register('contract', views.ContractView)
 router.register('provider', views.ProviderView)
 router.register('supplier', views.SupplierView)
+router.register('user', views.UserView)
 
 
 contract_router = routers.NestedSimpleRouter(
@@ -30,5 +31,6 @@ urlpatterns = [
         views.ProviderContractViewSet.as_view()),
     path(
         'service_providers/<int:pk>/',
-        views.ServiceProviderViewSet.as_view())
+        views.ServiceProviderViewSet.as_view()),
+    path('login/<str:username>/<str:password>', views.UserLoginView.as_view())
 ]

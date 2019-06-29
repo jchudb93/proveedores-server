@@ -93,9 +93,22 @@ class SupplierSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 class ProviderSerializer(serializers.ModelSerializer):
 
-    supplier_provider = SupplierSerializer(many=True, read_only=True)
+    supplier_provider = SupplierSerializer(
+        many=True,
+        read_only=True,
+        )
+    in_charge = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(role__exact='Encargado')
+        )
 
     class Meta:
         model = Provider
