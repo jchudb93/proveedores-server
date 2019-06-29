@@ -87,13 +87,15 @@ class AgreementSerializer(serializers.ModelSerializer):
 
 
 class SupplierSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Supplier
         fields = '__all__'
 
 
 class ProviderSerializer(serializers.ModelSerializer):
-    supplier = SupplierSerializer(many=True, read_only=True)
+
+    supplier_provider = SupplierSerializer(many=True, read_only=True)
 
     class Meta:
         model = Provider
@@ -171,8 +173,10 @@ class ContractStateSerializer(serializers.ModelSerializer):
 
 
 class ProviderStateSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Provider
+        fields = '__all__'
 
 
 class ContractQualificationSerializer(serializers.ModelSerializer):
@@ -187,6 +191,7 @@ class ContractPointsSerializer(serializers.ModelSerializer):
             'id',
             'state',
             'dateStart',
+            'dateEnd',
             'in_charge_points',
             'quality_points',
             'contract_points',

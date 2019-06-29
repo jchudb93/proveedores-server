@@ -19,32 +19,6 @@ class Service(models.Model):
         return self.name + " " + self.service_category
 
 
-class Supplier(models.Model):
-    ACTIVE = 'Activo'
-    INACTIVE = 'Inactivo'
-    STATE_CHOICES = (
-        (ACTIVE, 'Activo'),
-        (INACTIVE, 'Inactivo')
-    )
-    EXTERNAL = 'Externo'
-    INTERNAL = 'Interno'
-    TYPE_CHOICES = (
-        (EXTERNAL, 'Externo'),
-        (INTERNAL, 'Interno')
-    )
-    contact = models.CharField(max_length=255)
-    company = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    email = models.EmailField()
-    telephone = models.CharField(max_length=12)
-    cell = models.CharField(max_length=12)
-    ruc = models.IntegerField(blank=False)
-    state = models.CharField(
-        max_length=10,
-        choices=STATE_CHOICES,
-        default=ACTIVE
-    )
-
 
 class Provider(models.Model):
 
@@ -97,7 +71,39 @@ class Provider(models.Model):
         choices=CATEGORY_CHOICES,
         default=BASIC
     )
-    suppliers = models.ManyToManyField(Supplier, blank=True)
+    # suppliers = models.ManyToManyField(Supplier, blank=True)
+
+class Supplier(models.Model):
+    ACTIVE = 'Activo'
+    INACTIVE = 'Inactivo'
+    STATE_CHOICES = (
+        (ACTIVE, 'Activo'),
+        (INACTIVE, 'Inactivo')
+    )
+    EXTERNAL = 'Externo'
+    INTERNAL = 'Interno'
+    TYPE_CHOICES = (
+        (EXTERNAL, 'Externo'),
+        (INTERNAL, 'Interno')
+    )
+    contact = models.CharField(max_length=255)
+    company = models.CharField(max_length=255)
+    email = models.EmailField()
+    telephone = models.CharField(max_length=12)
+    cell = models.CharField(max_length=12)
+    ruc = models.IntegerField(blank=False)
+    state = models.CharField(
+        max_length=10,
+        choices=STATE_CHOICES,
+        default=ACTIVE
+    )
+
+    provider = models.ForeignKey(
+        Provider,
+        on_delete=models.CASCADE,
+        related_name='supplier_provider',
+        null=True,
+        blank=True)
 
 
 class Contract(models.Model):
@@ -128,17 +134,17 @@ class Contract(models.Model):
     description = models.TextField(blank=True)
     percentage = models.FloatField(blank=True, null=True)
     contract_file = models.CharField(max_length=200)
-    in_charge_points = models.IntegerField(blank=True,  null=True)
-    quality_points = models.IntegerField(blank=True,  null=True)
-    contract_points = models.IntegerField(blank=True,  null=True)
-    supplier_points = models.IntegerField(blank=True,  null=True)
+    in_charge_points = models.IntegerField(blank=True, null=True)
+    quality_points = models.FloatField(blank=True, null=True)
+    contract_points = models.FloatField(blank=True, null=True)
+    supplier_points = models.IntegerField(blank=True, null=True)
     services = models.ManyToManyField(Service, blank=True)
     provider = models.ForeignKey(
-        Provider,
-        on_delete=models.CASCADE,
-        related_name='contract_providers',
-        null=True,
-        blank=True
+            Provider,
+            on_delete=models.CASCADE,
+            related_name='contract_providers',
+            null=True,
+            blank=True
         )
 
 
