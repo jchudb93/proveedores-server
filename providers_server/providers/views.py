@@ -46,7 +46,7 @@ class ProviderView(viewsets.ModelViewSet):
 class SupplierView(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
-    
+
 
 class UpdateContractState(generics.UpdateAPIView):
     
