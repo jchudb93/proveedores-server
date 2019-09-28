@@ -37,6 +37,7 @@ class TaskSerializer(serializers.ModelSerializer):
     contract_id = serializers.IntegerField(write_only=True, required=False)
     dateLimit = serializers.DateField(format='%d-%m-%Y', required=False)
     dateEnd = serializers.DateField(format='%d-%m-%Y', required=False)
+    task_points = serializers.FloatField(required=False)
 
     class Meta:
         model = Task
@@ -53,6 +54,9 @@ class TaskSerializer(serializers.ModelSerializer):
             'notification',
             instance.notification)
         instance.done = validated_data.get('done', instance.done)
+        instance.task_points = validated_data.get(
+            'task_points',
+            instance.task_points)
         instance.save()
         if validated_data['contract_id'] is not None:
             contract_id = validated_data['contract_id']

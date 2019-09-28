@@ -219,3 +219,5 @@ class Task(models.Model):
         related_name='task_contracts',
         null=True,
         blank=True)
+        
+    task_points = models.FloatField(blank=True, null=True)
