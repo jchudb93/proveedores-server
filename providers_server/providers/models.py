@@ -174,6 +174,13 @@ class Contract(models.Model):
             null=True,
             blank=True
         )
+    supplier = models.ForeignKey(
+        Supplier,
+        on_delete=models.CASCADE,
+        related_name='contract_suppliers',
+        null=True,
+        blank=True
+    )
 
 
 class Agreement(models.Model):
