@@ -165,7 +165,7 @@ class ProviderContractViewSet(generics.ListAPIView):
 
 class ServiceProviderViewSet(generics.ListAPIView):
 
-    serializer_class = ServiceProviderSerialzier
+    serializer_class = ServiceProviderSerializer
 
     def get_queryset(self):
 
@@ -195,3 +195,18 @@ class UserLoginView(generics.ListCreateAPIView):
             password__exact=self.kwargs['password'])
         return queryset
 
+class UpdateContractSupplier(generics.UpdateAPIView):
+    
+    queryset = Contract.objects.all()
+    serializer_class = ContractSupplierSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.supplier_id = request.data.get('supplier_id')
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)

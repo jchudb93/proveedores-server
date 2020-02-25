@@ -137,6 +137,7 @@ class ContractSerializer(serializers.ModelSerializer):
 
     dateStart = serializers.DateField(format='%d-%m-%Y')
     dateEnd = serializers.DateField(format='%d-%m-%Y')
+    supplier = SupplierSerializer(read_only=True)
 
     class Meta:
         model = Contract
@@ -159,7 +160,8 @@ class ContractSerializer(serializers.ModelSerializer):
             'contract_points',
             'supplier_points',
             'provider',
-            'provider_id')
+            'provider_id',
+            'supplier')
     
     def create(self, validate_data):
 
@@ -225,7 +227,11 @@ class ProviderAvgSerializer(serializers.Serializer):
     supplier_points_avg = serializers.FloatField()
 
 
-class ServiceProviderSerialzier(serializers.Serializer):
+class ServiceProviderSerializer(serializers.Serializer):
 
     provider_id = serializers.IntegerField()
     contract_count = serializers.IntegerField()
+
+class ContractSupplierSerializer(serializers.Serializer):
+
+    supplier_id = serializers.IntegerField()
