@@ -202,7 +202,7 @@ class UpdateContractSupplier(generics.UpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        instance.supplier_id = request.data.get('supplier_id')
+        instance.supplier = request.data.get('supplier_id')
         instance.save()
 
         serializer = self.get_serializer(instance)

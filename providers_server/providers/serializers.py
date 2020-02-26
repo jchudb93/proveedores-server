@@ -138,6 +138,11 @@ class ContractSerializer(serializers.ModelSerializer):
     dateStart = serializers.DateField(format='%d-%m-%Y')
     dateEnd = serializers.DateField(format='%d-%m-%Y')
     supplier = SupplierSerializer(read_only=True)
+    supplier_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        queryset=Supplier.objects.all(),
+        allow_null=True
+    )
 
     class Meta:
         model = Contract
@@ -161,7 +166,8 @@ class ContractSerializer(serializers.ModelSerializer):
             'supplier_points',
             'provider',
             'provider_id',
-            'supplier')
+            'supplier',
+            'supplier_id')
     
     def create(self, validate_data):
 
@@ -180,7 +186,6 @@ class ContractSerializer(serializers.ModelSerializer):
             Task.objects.create(contract=contract, **task)
         
         for service_id in service_ids:
-            
             contract.services.add(service_id)
         
         return contract
